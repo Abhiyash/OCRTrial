@@ -105,28 +105,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void processImage(View view) {
+    public void processImage(View view)
+    {
+        if(image!=null) {
+            mTess.setImage(image);
+            OCRresult = mTess.getUTF8Text().toString();
 
-        mTess.setImage(image);
-        OCRresult = mTess.getUTF8Text().toString();
-
-        OCRTextView = (TextView) findViewById(R.id.OCRTextView);
-        //EditText e=(EditText)findViewById(R.id.editText);
-        Toast.makeText(this, "Ocr ans=" + OCRresult, Toast.LENGTH_SHORT).show();
-        OCRTextView.setText(OCRresult);
+            OCRTextView = (TextView) findViewById(R.id.OCRTextView);
+            //EditText e=(EditText)findViewById(R.id.editText);
+            //Toast.makeText(this, "Ocr ans=" + OCRresult, Toast.LENGTH_SHORT).show();
+            OCRTextView.setText(OCRresult);
+        }
+        else
+        {
+            Toast.makeText(this, "Please load a picture", Toast.LENGTH_SHORT).show();
+        }
         //e.setText("asd"+OCRresult);
     }
 
     @Override
     public void onClick(View v) {
+        Toast.makeText(this, "Inside onclick", Toast.LENGTH_SHORT).show();
         //if(b1.isSelected()){
+
         try {
+
             Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
             //String term = editTextInput.getText().toString();
-            intent.putExtra(SearchManager.QUERY, OCRTextView.getText().toString());
-            startActivity(intent);
-        } catch (Exception e) {
-            // TODO: handle exception
+
+          ;
+
+                intent.putExtra(SearchManager.QUERY, OCRTextView.getText().toString());
+                startActivity(intent);
+
+
+
+
+            } catch (Exception e) {
+            Toast.makeText(this, "Error Occurred"+e, Toast.LENGTH_SHORT).show();
         }
         //}
     }
